@@ -28,14 +28,16 @@ public class Main {
                 do {
                     System.out.println("================================== Basic JDBC ==================================");
                     System.out.println("1 : Retrieve Data");
-                    System.out.println("2 : Exit");
+                    System.out.println("2 : Insert Data");
+                    System.out.println("3 : Exit");
 
                     System.out.println("\nEnter your choice :: ");
                     choice = scan.nextInt();
 
                     switch (choice) {
                         case 1 -> retrieveData(con);
-                        case 2 -> System.out.println("Exit...... 👋");
+                        case 2 -> insertData(con, scan);
+                        case 3 -> System.out.println("Exit...... 👋");
 
                         default -> System.out.println("⛔ Enter valid input");
 
@@ -48,6 +50,24 @@ public class Main {
 
         } catch (Exception e) {
             System.out.println(e.getMessage());
+        }
+    }
+
+    private static void insertData(Connection con, Scanner scan) {
+        try {
+            String insert = "INSERT INTO employees (ename, edept, esal) VALUES ('BHAVESH', 'CSE', 23000)";
+
+            Statement stmt = con.createStatement();
+            int updateRow = stmt.executeUpdate(insert);
+
+            if (updateRow > 0) {
+                System.out.println(updateRow + " Employee(s) added ✅");
+            } else {
+                System.out.println("Employee not added ⛔");
+            }
+
+        } catch (Exception e) {
+            System.out.println("❌ Error: " + e.getMessage());
         }
     }
 
