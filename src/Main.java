@@ -29,7 +29,8 @@ public class Main {
                     System.out.println("================================== Basic JDBC ==================================");
                     System.out.println("1 : Retrieve Data");
                     System.out.println("2 : Insert Data");
-                    System.out.println("3 : Exit");
+                    System.out.println("3 : Update Data");
+                    System.out.println("4 : Exit");
 
                     System.out.println("\nEnter your choice :: ");
                     choice = scan.nextInt();
@@ -37,13 +38,14 @@ public class Main {
                     switch (choice) {
                         case 1 -> retrieveData(con);
                         case 2 -> insertData(con, scan);
-                        case 3 -> System.out.println("Exit...... 👋");
+                        case 3 -> updateData(con, scan);
+                        case 4 -> exit();
 
                         default -> System.out.println("⛔ Enter valid input");
 
                     }
 
-                } while (choice != 2);
+                } while (true);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }
@@ -51,6 +53,15 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private static void updateData(Connection con, Scanner scan) {
+
+    }
+
+    private static void exit() {
+        System.out.println("Bye Bye 👋");
+        System.exit(0);
     }
 
     private static void insertData(Connection con, Scanner scan) {
