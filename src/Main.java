@@ -56,7 +56,66 @@ public class Main {
     }
 
     private static void updateData(Connection con, Scanner scan) {
+        try {
+            boolean t = true;
 
+            while (t) {
+                System.out.println("\n1 : Change name ");
+                System.out.println("2 : Change department ");
+                System.out.println("3 : Change salary ");
+                System.out.println("4 : Exit ");
+                System.out.print("Enter update choice :: ");
+                int uc = scan.nextInt();
+
+                Statement stmt = con.createStatement();
+                int rs = 0;
+
+                switch (uc) {
+                    case 1:
+                        String uName = "UPDATE employees SET ename = 'Pratik' WHERE eid = 20251102";
+                        rs = stmt.executeUpdate(uName);
+                        break;
+
+                    case 2:
+                        String uDept = "UPDATE employees SET edept = 'IT' WHERE eid = 20251102";
+                        rs = stmt.executeUpdate(uDept);
+                        break;
+
+                    case 3:
+                        String uSal = "UPDATE employees SET esal = 30000 WHERE eid = 20251102";
+                        rs = stmt.executeUpdate(uSal);
+                        break;
+
+                    case 4:
+                        t = false; // exit loop
+                        continue;
+
+                    default:
+                        System.out.println("Invalid choice ❌");
+                        continue;
+                }
+
+                if (rs > 0) {
+                    System.out.println(rs + " Employee(s) updated ✅");
+                } else {
+                    System.out.println("Employee not updated ⛔ (maybe eid not found)");
+                }
+            }
+
+            // Example insert after loop
+            String insert = "INSERT INTO employees (ename, edept, esal) VALUES ('BHAVESH', 'CSE', 23000)";
+            Statement stmtInsert = con.createStatement();
+            int updateRow = stmtInsert.executeUpdate(insert);
+
+            if (updateRow > 0) {
+                System.out.println(updateRow + " Employee(s) added ✅");
+            } else {
+                System.out.println("Employee not added ⛔");
+            }
+
+        } catch (Exception e) {
+            System.out.println("❌ Error: " + e.getMessage());
+        }
     }
 
     private static void exit() {
