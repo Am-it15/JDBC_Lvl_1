@@ -30,7 +30,8 @@ public class Main {
                     System.out.println("1 : Retrieve Data");
                     System.out.println("2 : Insert Data");
                     System.out.println("3 : Update Data");
-                    System.out.println("4 : Exit");
+                    System.out.println("4 : Delete Data");
+                    System.out.println("5 : Exit");
 
                     System.out.println("\nEnter your choice :: ");
                     choice = scan.nextInt();
@@ -39,7 +40,8 @@ public class Main {
                         case 1 -> retrieveData(con);
                         case 2 -> insertData(con, scan);
                         case 3 -> updateData(con, scan);
-                        case 4 -> exit();
+                        case 4 -> deleteData(con, scan);
+                        case 5 -> exit();
 
                         default -> System.out.println("⛔ Enter valid input");
 
@@ -53,6 +55,28 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    private static void deleteData(Connection con, Scanner scan) {
+
+        try {
+            String dltQuery="DELETE FROM employees where eid=20251102";
+            int rs=0;
+
+            Statement stmt= con.createStatement();
+            rs= stmt.executeUpdate(dltQuery);
+
+            if (rs > 0) {
+                System.out.println(rs + " Employee(s) deleted ✅");
+            } else {
+                System.out.println("Employee not deleted ⛔ (maybe eid not found)");
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+
     }
 
     private static void updateData(Connection con, Scanner scan) {
