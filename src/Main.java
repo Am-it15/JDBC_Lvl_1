@@ -4,8 +4,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Scanner;
 
-import static java.lang.Class.forName;
-
 public class Main {
     public static String url="jdbc:mysql://localhost:3306/test";
     public static String user="root";
