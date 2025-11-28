@@ -241,7 +241,35 @@ graph LR;
 | **SQLException**  | Handles errors or exceptions related to database access; used in try-catch blocks. | `try { /* DB code */ } catch(SQLException e) { e.printStackTrace(); }` |
 
 ---
+## 8️️⃣ Types of statements
 
+```mermaid
+graph LR;
+  A[Statements] --> B[1. Statement];
+  A[Type of JDBC] --> C[2. Dynamic Statement];
+  A[Type of JDBC] --> D[3. PreparedStatement];
+  A[Type of JDBC] --> E[4. CallableStatement];
+
+  style B fill:#FF5555,color:#EDFFF0, stroke:#FF5555
+  style C fill:#3DB6B1,color:#EDFFF0, stroke:#3DB6B1
+  style D fill:#31694E,color:#EDFFF0, stroke:#31694E
+  style E fill:#696FC7,color:#EDFFF0, stroke:#696FC7
+  
+  linkStyle 0 stroke:#FF5555,stroke-width:2px
+  linkStyle 1 stroke:#3DB6B1,stroke-width:2px
+  linkStyle 2 stroke:#31694E,stroke-width:2px
+  linkStyle 3 stroke:#696FC7,stroke-width:2px
+```
+
+| Type                  | SQL Input            | Safe?       | Performance | Best For                  |
+| --------------------- | -------------------- | ----------- | ----------- | ------------------------- |
+| **Statement**         | Static               | ❌ Not safe  | Slow        | Simple fixed queries      |
+| **Dynamic Statement** | Concatenated strings | ❌ Dangerous | Slow        | Old style dynamic queries |
+| **PreparedStatement** | Uses `?`             | ✔ Safe      | Fast        | Queries with user inputs  |
+| **CallableStatement** | Stored Procedures    | ✔ Safe      | Very Fast   | Complex DB operations     |
+
+
+---
 ### Program Flow
 ```mermaid
 graph TD;
