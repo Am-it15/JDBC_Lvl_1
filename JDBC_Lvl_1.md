@@ -143,7 +143,7 @@ JDBC provides a set of common interfaces:
 
 --- 
 
-### Types of JDBC
+## 6️⃣Types of JDBC
 
 ```mermaid
 graph LR;
@@ -174,7 +174,7 @@ graph LR;
 
 ---
 
-### JDBC 2-tier Architecture v/s 3-tier Architecture
+## 7️⃣ JDBC 2-tier Architecture v/s 3-tier Architecture
 
 #### 2 Tier Architecture (Technical)
 ![JDBC](https://raw.githubusercontent.com/Am-it15/images/main/tech_2_Tier.png
@@ -208,7 +208,7 @@ graph LR;
 
 ---
 
-### Components
+## 8️⃣Components
 
 ```mermaid
 graph LR;
