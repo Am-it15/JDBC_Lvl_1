@@ -232,6 +232,142 @@ graph LR;
   linkStyle 3 stroke:#696FC7,stroke-width:2px
   linkStyle 4 stroke:#FC8F54,stroke-width:2px
 ```
+#### 1. DriverManager
+
+`DriverManager` is a class that manages a set of JDBC drivers. It's the traditional way to establish a connection to a database.
+```java
+Class.forName("com.mysql.cj.jdbc.Driver");  // Load the JDBC driver
+```
+
+**Key Points:**
+- Loads and registers the JDBC driver for MySQL
+- Modern JDBC drivers (4.0+) auto-register, but explicit loading ensures compatibility
+- Acts as a factory for creating `Connection` objects
+- Maintains a list of registered drivers and selects the appropriate one based on the connection URL
+
+**Methods:**
+- `getConnection(String url, String user, String password)` - Establishes a database connection
+- `registerDriver(Driver driver)` - Registers a driver with the DriverManager
+- `getDrivers()` - Retrieves an enumeration of all loaded JDBC drivers
+
+
+### 2. Connection
+
+The `Connection` interface represents a session with the database. It's used to create statements and manage transactions.
+```java
+Connection con = DriverManager.getConnection(url, user, pswd);
+```
+
+**Key Points:**
+- Establishes a connection to the database using URL, username, and password
+- Connection URL format: `jdbc:mysql://hostname:port/database_name`
+- Should be closed after use to free up resources (use try-with-resources in production)
+- Supports transaction management (commit, rollback, setAutoCommit)
+- Represents a physical connection to the database
+
+**Common Methods:**
+- `createStatement()` - Creates a Statement object for executing SQL queries
+- `prepareStatement(String sql)` - Creates a PreparedStatement object
+- `close()` - Closes the database connection
+- `commit()` - Makes all changes permanent since the last commit
+- `rollback()` - Undoes all changes made in the current transaction
+- `setAutoCommit(boolean autoCommit)` - Sets auto-commit mode
+
+### 3. Statement
+
+The `Statement` interface is used to execute SQL queries against the database.
+```java
+Statement stmt = con.createStatement();
+```
+
+**Types of Statements:**
+
+**a) Statement** (used in this project)
+- Executes simple SQL queries without parameters
+- Vulnerable to SQL injection
+- Best for static queries
+- SQL query is compiled every time it's executed
+```java
+ResultSet rs = stmt.executeQuery("SELECT * FROM employees");  // For SELECT
+int rows = stmt.executeUpdate("INSERT INTO employees ...");    // For INSERT/UPDATE/DELETE
+```
+
+**Key Methods:**
+- `executeQuery(String sql)` - Executes SELECT queries, returns ResultSet
+- `executeUpdate(String sql)` - Executes INSERT, UPDATE, DELETE queries, returns row count
+- `execute(String sql)` - Executes any SQL statement, returns boolean
+
+
+
+### 4. ResultSet
+
+The `ResultSet` interface represents the result of a database query. It maintains a cursor pointing to the current row of data.
+```java
+ResultSet rs = stmt.executeQuery("SELECT * FROM employees");
+while (rs.next()) {
+    int id = rs.getInt("eid");
+    String name = rs.getString("ename");
+    String dept = rs.getString("edept");
+    double salary = rs.getDouble("esal");
+}
+```
+
+**Key Points:**
+- Acts as a table of data returned by executing a SELECT query
+- Cursor initially positioned before the first row
+- `next()` method moves cursor to the next row
+- Returns `false` when no more rows are available
+
+**Common Methods:**
+- `next()` - Moves cursor to the next row, returns true if row exists
+- `getInt(String columnName)` - Retrieves integer value from specified column
+- `getString(String columnName)` - Retrieves string value from specified column
+- `getDouble(String columnName)` - Retrieves double value from specified column
+- `getBoolean()`, `getDate()`, `getTimestamp()` - Other data type retrievers
+- `first()`, `last()`, `absolute(int row)` - Navigation methods (for scrollable ResultSets)
+- `close()` - Closes the ResultSet
+
+**Types of ResultSet:**
+- **TYPE_FORWARD_ONLY** - Cursor moves forward only (default)
+- **TYPE_SCROLL_INSENSITIVE** - Scrollable, not sensitive to changes
+- **TYPE_SCROLL_SENSITIVE** - Scrollable, sensitive to database changes
+
+### 5. SQLException
+
+`SQLException` is an exception class that provides information about database access errors and other errors.
+```java
+try {
+    Connection con = DriverManager.getConnection(url, user, pswd);
+    // Database operations
+} catch (SQLException e) {
+    System.out.println("Error: " + e.getMessage());
+    System.out.println("Error Code: " + e.getErrorCode());
+    System.out.println("SQL State: " + e.getSQLState());
+}
+```
+
+**Key Points:**
+- Thrown when database access errors occur
+- Provides detailed error information
+- Can be chained (one exception can contain another)
+- Helps in debugging database-related issues
+
+**Common Methods:**
+- `getMessage()` - Returns a description of the error
+- `getErrorCode()` - Returns vendor-specific error code
+- `getSQLState()` - Returns SQLState (standardized error code)
+- `getNextException()` - Returns the next exception in the chain
+- `printStackTrace()` - Prints stack trace for debugging
+
+**Common SQL Error Scenarios:**
+- Connection failures (wrong credentials, server down)
+- Syntax errors in SQL statements
+- Constraint violations (primary key, foreign key, unique)
+- Table or column not found
+- Data type mismatches
+- Timeout errors
+
+
 
 | Component         | Description / Role                                                                 | Example Usage |
 |------------------|-----------------------------------------------------------------------------------|---------------|
