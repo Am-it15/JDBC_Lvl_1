@@ -172,10 +172,10 @@ public class Main {
             ResultSet rs= stmt.executeQuery(retrieve);
 
             while (rs.next()) {
-                int id= rs.findColumn("eid");
+                int id= rs.getInt("eid");
                 String name= rs.getString("ename");
                 String dept=rs.getString("edept");
-                double sal= rs.findColumn("esal");
+                double sal= rs.getDouble("esal");
 
                 System.out.println("========== DATA NO. "+n+" ==========");
                 System.out.println("Employee id :: "+id);
