@@ -133,18 +133,6 @@ JDBC is like a **bridge** between your Java program and the MySQL database. It a
 3. **Connection Not Closed**: The program doesn't close the database connection properly. Consider adding connection cleanup.
 
 4. **SQL Injection Risk**: Using string concatenation for SQL queries can be dangerous. Use `PreparedStatement` instead for better security.
-
----
-
-## 💡 Suggestions for Improvement
-
-- [ ] Add user input for insert/update/delete operations
-- [ ] Fix the `retrieveData()` method bugs
-- [ ] Use `PreparedStatement` instead of `Statement`
-- [ ] Close database connections properly using try-with-resources
-- [ ] Add error handling for invalid employee IDs
-- [ ] Validate user input to prevent errors
-
 ---
 
 ## 📚 Key Concepts
@@ -189,25 +177,4 @@ Employee id :: 1
 Employee Name :: John Doe
 Employee Department :: IT
 Employee Salary :: 50000.0
-```
-
----
-
-## 🤝 Contributing
-
-Feel free to improve this code! Some ideas:
-- Add dynamic input for all operations
-- Implement search functionality
-- Add data validation
-- Create a GUI version
-
----
-
-## 📄 License
-
-Free to use for learning purposes! 🎉
-
----
-
-**Happy Coding! 💻**
 ```
