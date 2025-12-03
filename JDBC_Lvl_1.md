@@ -426,7 +426,6 @@ Download the JDBC driver JAR file for your database:
 |:----------:|:--------------:|
 | **MySQL** | [MySQL Connector/J](https://dev.mysql.com/downloads/connector/j/) |
 | **PostgreSQL** | [PostgreSQL JDBC Driver](https://jdbc.postgresql.org/download/) |
-| **Oracle** | [Oracle JDBC Driver](https://www.oracle.com/database/technologies/appdev/jdbc-downloads.html) |
 | **SQL Server** | [Microsoft JDBC Driver](https://docs.microsoft.com/en-us/sql/connect/jdbc/download-microsoft-jdbc-driver-for-sql-server) |
 
 ---
